@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Παρουσιολόγιο - Σχολή Χορού Ε. Μπουρτζίκου</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Playfair+Display:ital,wght@0,600;1,600&display=swap" rel="stylesheet">
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+      user-select: none;
+    }
+    :root {
+      --bg-cream: #f9ece9;
+      --card-bg: #fae4e1;
+      --card-border: #f1cfc9;
+      --note-bg: #ebabaa;
+      --text-dark: #222222;
+      --text-muted: #555555;
+      --btn-green: #317242;
+      --btn-green-shadow: #245732;
+      --btn-red: #9e2a2b;
+      --btn-red-shadow: #7a1f20;
+      --gold: #d4af37;
+    }
+    body {
+      font-family: 'Montserrat', sans-serif;
+      background: #e8d0cb;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      padding: 10px;
+    }
+    .phone-container {
+      width: 100%;
+      max-width: 410px;
+      background: var(--bg-cream);
+      border-radius: 36px;
+      box-shadow: 0 16px 45px rgba(0,0,0,0.22);
+      border: 7px solid #222;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      min-height: 840px;
+      position: relative;
+    }
+    /* Dynamic Island */
+    .notch {
+      width: 110px;
+      height: 24px;
+      background: #000;
+      margin: 8px auto 2px;
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      padding-right: 12px;
+    }
+    .notch-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #10b981;
+    }
+    /* Header Area */
+    .header {
+      padding: 10px 18px 8px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: relative;
+    }
+    .brand-wrap {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .logo-container {
+      position: relative;
+      width: 58px;
+      height: 58px;
+      flex-shrink: 0;
+    }
+    .boutique-seal {
+      position: absolute;
+      top: -4px;
+      left: -4px;
+      display: flex;
+      align-items: center;
+      gap: 2px;
+      background: rgba(255,255,255,0.9);
+      padding: 1px 4px;
+      border-radius: 6px;
+      border: 0.5px solid var(--gold);
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+      z-index: 2;
+    }
+    .gold-medal {
+      width: 13px;
+      height: 13px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 35% 35%, #ffd700, #b8860b);
+      border: 1px solid #d4af37;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .gold-medal::after {
+      content: '★';
+      font-size: 8px;
+      color: #fff;
+    }
+    .boutique-text {
+      font-family: 'Playfair Display', serif;
+      font-size: 7px;
+      color: #555;
+      font-style: italic;
+    }
+    .logo-circle {
+      width: 58px;
+      height: 58px;
+      border-radius: 50%;
+      background: #f7dad5;
+      border: 1.5px solid #111;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .brand-text h1 {
+      font-size: 15.5px;
+      font-weight: 700;
+      color: #111;
+      line-height: 1.15;
+      letter-spacing: -0.2px;
+    }
+    /* Music Header Button */
+    .music-btn {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      background: #fff;
+      border: 1.5px solid #d89e95;
+      padding: 6px 10px;
+      border-radius: 18px;
+      cursor: pointer;
+      box-shadow: 0 3px 8px rgba(0,0,0,0.06);
+      transition: all 0.2s;
+    }
+    .music-btn.playing {
+      background: #fae0dc;
+      border-color: #ba4748;
+    }
+    .music-btn-icon {
+      font-size: 13px;
+    }
+    .music-btn-text {
+      font-size: 10px;
+      font-weight: 700;
+      color: #222;
+    }
+    .equalizer {
+      display: flex;
+      align-items: flex-end;
+      gap: 2px;
+      height: 12px;
+    }
+    .bar {
+      width: 2.5px;
+      height: 4px;
+      background: #9e2a2b;
+      border-radius: 2px;
+      transition: height 0.2s;
+    }
+    .playing .bar:nth-child(1) { animation: bounce 0.5s ease-in-out infinite alternate; }
+    .playing .bar:nth-child(2) { animation: bounce 0.4s ease-in-out 0.1s infinite alternate; }
+    .playing .bar:nth-child(3) { animation: bounce 0.6s ease-in-out 0.2s infinite alternate; }
+    @keyframes bounce {
+      0% { height: 3px; }
+      100% { height: 12px; }
+    }
+    /* Title Section */
+    .title-section {
+      padding: 2px 18px 8px;
+    }
+    .title-section h2 {
+      font-size: 20px;
+      font-weight: 800;
+      color: #111;
+      letter-spacing: -0.4px;
+    }
+    .title-section p {
+      font-size: 13px;
+      font-weight: 500;
+      color: #333;
+      margin-top: 1px;
+    }
+    /* Note Banner */
+    .note-banner {
+      background: var(--note-bg);
+      border-radius: 10px;
+      margin: 0 16px 8px;
+      padding: 8px 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12px;
+      color: #331515;
+    }
+    .note-banner strong {
+      font-weight: 700;
+    }
+    /* Action Bar */
+    .action-bar {
+      display: flex;
+      gap: 8px;
+      padding: 0 16px 10px;
+    }
+    .date-pill {
+      flex: 1.1;
+      background: #e2b7b0;
+      border-radius: 12px;
+      padding: 9px 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12.5px;
+      font-weight: 700;
+      color: #2b1111;
+      gap: 6px;
+    }
+    .all-present-btn {
+      flex: 1.3;
+      background: var(--btn-green);
+      color: #fff;
+      border: none;
+      border-radius: 12px;
+      padding: 9px 8px;
+      font-size: 13px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      cursor: pointer;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.12);
+    }
+    .all-present-btn:active {
+      transform: scale(0.98);
+    }
+    /* Student Cards List */
+    .student-list {
+      padding: 0 16px 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+      flex: 1;
+      overflow-y: auto;
+    }
+    .student-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 16px;
+      padding: 9px 12px 9px 14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.03);
+    }
+    .student-name {
+      font-size: 13.5px;
+      font-weight: 600;
+      color: #1a1a1a;
+      letter-spacing: -0.2px;
+    }
+    .status-btn {
+      border: none;
+      border-radius: 16px;
+      padding: 3px 12px 4px;
+      color: #fff;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-width: 86px;
+      transition: transform 0.1s;
+    }
+    .status-btn:active {
+      transform: scale(0.96);
+    }
+    .status-btn.present {
+      background: var(--btn-green);
+    }
+    .status-btn.absent {
+      background: var(--btn-red);
+    }
+    .status-label {
+      font-size: 11.5px;
+      font-weight: 700;
+      line-height: 1.2;
+    }
+    .status-sub {
+      font-size: 8.5px;
+      opacity: 0.88;
+      font-weight: 500;
+    }
+    /* Bottom Nav Bar */
+    .bottom-nav {
+      background: #f7deda;
+      border-top: 1px solid #ebd0cb;
+      padding: 8px 16px 14px;
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      margin-top: auto;
+    }
+    .nav-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 3px;
+      font-size: 10.5px;
+      font-weight: 600;
+      color: #666;
+      cursor: pointer;
+    }
+    .nav-item.active {
+      color: #111;
+      font-weight: 700;
+    }
+    .nav-icon {
+      font-size: 16px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="phone-container">
+    <div class="notch"><div class="notch-dot"></div></div>
+
+    <!-- Header -->
+    <div class="header">
+      <div class="brand-wrap">
+        <div class="logo-container">
+          <div class="boutique-seal">
+            <div class="gold-medal"></div>
+            <span class="boutique-text">boutique school</span>
+          </div>
+          <div class="logo-circle">
+            <svg width="34" height="42" viewBox="0 0 100 130">
+              <circle cx="48" cy="16" r="6" fill="#111" />
+              <path d="M 47,8 L 47,122 M 22,46 Q 52,24 64,48 Q 72,66 48,70 Q 76,74 68,98 Q 58,118 28,94" 
+                    fill="none" stroke="#111" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+          </div>
+        </div>
+        <div class="brand-text">
+          <h1>Σχολή Χορού<br>Ε. Μπουρτζίκου</h1>
+        </div>
+      </div>
+
+      <button class="music-btn" id="musicToggleBtn" onclick="toggleMusic()">
+        <span class="music-btn-icon" id="playIcon">▶</span>
+        <span class="music-btn-text">Rafaela's Flow</span>
+        <div class="equalizer">
+          <div class="bar"></div>
+          <div class="bar"></div>
+          <div class="bar"></div>
+        </div>
+      </button>
+    </div>
+
+    <!-- Title Info -->
+    <div class="title-section">
+      <h2>Παρουσιολόγιο</h2>
+      <p>Πέμπτη Σύγχρονο • Δασκάλα: Ραφαέλα</p>
+    </div>
+
+    <!-- Banner -->
+    <div class="note-banner">
+      <span>📌</span>
+      <span><strong>Σημείωση:</strong> Μόνο απουσίες</span>
+    </div>
+
+    <!-- Action Bar -->
+    <div class="action-bar">
+      <div class="date-pill">
+        <span>📅</span>
+        <span>22/10 (Πέμπτη)</span>
+      </div>
+      <button class="all-present-btn" onclick="markAllPresent()">
+        <span>✓</span>
+        <span>Όλες Παρούσες</span>
+      </button>
+    </div>
+
+    <!-- Student Cards -->
+    <div class="student-list" id="studentList"></div>
+
+    <!-- Navigation Bar -->
+    <div class="bottom-nav">
+      <div class="nav-item active">
+        <span class="nav-icon">📋</span>
+        <span>Παρουσίες</span>
+      </div>
+      <div class="nav-item">
+        <span class="nav-icon">📈</span>
+        <span>Στατιστικά</span>
+      </div>
+      <div class="nav-item">
+        <span class="nav-icon">⚙️</span>
+        <span>Ρυθμίσεις</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Audio Element -->
+  <audio id="flowAudio" src="rafaela_s_flow.mp3" preload="auto"></audio>
+
+  <script>
+    const studentsData = [
+      { id: 1, name: "1. Ράνια Δημητριάδη", absent: true, count: "1/5" },
+      { id: 2, name: "2. Μαρία Ξανθοπούλου", absent: false, count: "0/5" },
+      { id: 3, name: "3. Αγγελική Καραλιάνη", absent: false, count: "0/5" },
+      { id: 4, name: "4. Δανάη Τσούλα", absent: false, count: "0/5" },
+      { id: 5, name: "5. Αριάδνη Βαβούρη", absent: false, count: "0/5" },
+      { id: 6, name: "6. Βίκυ Ρόγκα", absent: false, count: "0/5" },
+      { id: 7, name: "7. Μαριάννενα Οικονομίδη", absent: false, count: "0/5" },
+      { id: 8, name: "8. Ευαγγελία Φράγκου", absent: true, count: "1/5" }
+    ];
+
+    function renderStudents() {
+      const container = document.getElementById('studentList');
+      container.innerHTML = studentsData.map(s => `
+        <div class="student-card">
+          <span class="student-name">${s.name}</span>
+          <button class="status-btn ${s.absent ? 'absent' : 'present'}" onclick="toggleStatus(${s.id})">
+            <span class="status-label">${s.absent ? 'Απούσα' : 'Παρούσα'}</span>
+            <span class="status-sub">${s.count} απουσίες</span>
+          </button>
+        </div>
+      `).join('');
+    }
+
+    function toggleStatus(id) {
+      const student = studentsData.find(s => s.id === id);
+      if (student) {
+        student.absent = !student.absent;
+        student.count = student.absent ? "1/5" : "0/5";
+        renderStudents();
+      }
+    }
+
+    function markAllPresent() {
+      studentsData.forEach(s => {
+        s.absent = false;
+        s.count = "0/5";
+      });
+      renderStudents();
+    }
+
+    const audio = document.getElementById('flowAudio');
+    const musicBtn = document.getElementById('musicToggleBtn');
+    const playIcon = document.getElementById('playIcon');
+
+    function toggleMusic() {
+      if (audio.paused) {
+        audio.play().then(() => {
+          musicBtn.classList.add('playing');
+          playIcon.textContent = '❚❚';
+        }).catch(err => {
+          console.error("Audio error:", err);
+        });
+      } else {
+        audio.pause();
+        musicBtn.classList.remove('playing');
+        playIcon.textContent = '▶';
+      }
+    }
+
+    audio.onended = function() {
+      musicBtn.classList.remove('playing');
+      playIcon.textContent = '▶';
+    };
+
+    renderStudents();
+  </script>
+</body>
+</html>
